@@ -115,7 +115,6 @@ const ChatApp: React.FC = () => {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder("utf-8");
-      setLoader(false);
 
       let isDone = false;
 
@@ -134,6 +133,13 @@ const ChatApp: React.FC = () => {
               const stream_data = JSON.parse(jsonString);
 
               console.log(stream_data);
+
+              if (
+                stream_data.node_name == "end_node" ||
+                stream_data.node_name == "__interrupt__"
+              ) {
+                setLoader(false);
+              }
 
               if (
                 (stream_data.status === "node_stream" ||
@@ -435,7 +441,10 @@ const ChatApp: React.FC = () => {
           </Box>
 
           <Box flexShrink={0}>
-            <ChatInput handleSendMessage={handleSendMessage} />
+            <ChatInput
+              handleSendMessage={handleSendMessage}
+              isLoading={loader}
+            />
           </Box>
         </Box>
       </Box>

@@ -4,4 +4,6 @@ git_instructions.txt
 instructions.txt
 .env
 
+client/node_modules
 server/node_modules
+client/dist/
