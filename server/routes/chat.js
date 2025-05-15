@@ -14,7 +14,7 @@ let router = Router()
 
 const CheckUser = async (req, res, next) => {
     jwt.verify(req.cookies?.userToken, process.env.JWT_PRIVATE_KEY, async (err, decoded) => {
-        console.log("req.cookies?.userToken ",req.cookies?.userToken)
+        // console.log("req.cookies?.userToken ",req.cookies?.userToken)
         if (decoded) {
             let userData = null
 

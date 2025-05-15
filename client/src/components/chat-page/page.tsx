@@ -429,7 +429,7 @@ const ChatApp: React.FC = () => {
           <Box
             flex={1}
             sx={{
-              padding: "2rem 16rem",
+              // padding: "2rem 16rem",
               overflowY: "auto",
               "&::-webkit-scrollbar": { display: "none" },
               msOverflowStyle: "none", // IE and Edge
