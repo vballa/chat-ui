@@ -1,2 +1,7 @@
 server/node_modules/**/
 /server/node_modules/
+git_instructions.txt
+instructions.txt
+.env
+
+server/node_modules

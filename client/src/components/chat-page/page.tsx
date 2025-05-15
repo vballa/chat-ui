@@ -22,7 +22,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import RecentChats from "./RecentChat";
 import { useNavigate } from "react-router-dom";
 import instance from "../../config/instance";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { emptyUser } from "../../redux/user";
 
 const ChatApp: React.FC = () => {
@@ -47,6 +47,8 @@ const ChatApp: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [authToken, setAuthToken] = useState<string>();
   const chatWindowRef = useRef<HTMLDivElement>(null);
+
+  const { user } = useSelector((state) => state);
 
   useEffect(() => {
     if (chatWindowRef.current) {
@@ -112,7 +114,8 @@ const ChatApp: React.FC = () => {
       }
 
       const reader = response.body.getReader();
-      const decoder = new TextDecoder("utf-8");      setLoader(false);
+      const decoder = new TextDecoder("utf-8");
+      setLoader(false);
 
       let isDone = false;
 
@@ -300,7 +303,6 @@ const ChatApp: React.FC = () => {
           </IconButton> */}
         </Box>
 
-        
         {/* New chat button */}
 
         <Button
@@ -358,7 +360,7 @@ const ChatApp: React.FC = () => {
             borderRadius: 1,
             transition: "background-color 0.2s",
             "&:hover": theme.palette.side_panel.bg,
-            marginTop: "auto"
+            marginTop: "auto",
           }}
         >
           {mode === "light" ? (
@@ -392,6 +394,7 @@ const ChatApp: React.FC = () => {
             textAlign="center"
             borderBottom={1}
             borderColor="#8585851a"
+            gap={2}
           >
             {mode === "light" ? (
               <img
@@ -408,9 +411,10 @@ const ChatApp: React.FC = () => {
                 />
               </>
             )}
-            {/* <Typography variant="subtitle2" color="text.primary">
-              Unlock operational efficiency, fuel business growth
-            </Typography> */}
+            <Typography variant="subtitle2" color="text.primary">
+              {user["email"]}
+            </Typography>
+
             <IconButton onClick={logOut}>
               <LogoutIcon />
             </IconButton>
