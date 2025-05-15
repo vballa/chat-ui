@@ -4,9 +4,10 @@ import instance from "../../config/instance";
 
 interface Props {
   loadMessages: (chatId: string) => void;
+  chatTitle: string;
 }
 
-export default function RecentChats({ loadMessages }: Props) {
+export default function RecentChats({ loadMessages, chatTitle }: Props) {
   const [chats, setChats] = useState<{ title: string; id: string }[]>([]);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function RecentChats({ loadMessages }: Props) {
     };
 
     fetchChatHistory();
-  }, []);
+  }, [chatTitle]);
   // }, [auth_token, activeChatId]);
 
   return (

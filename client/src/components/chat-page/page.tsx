@@ -49,6 +49,7 @@ const ChatApp: React.FC = () => {
   const chatWindowRef = useRef<HTMLDivElement>(null);
 
   const { user } = useSelector((state) => state);
+  const [chatTitle, setChatTitle] = useState<string>("");
 
   useEffect(() => {
     if (chatWindowRef.current) {
@@ -139,6 +140,9 @@ const ChatApp: React.FC = () => {
                 stream_data.node_name == "__interrupt__"
               ) {
                 setLoader(false);
+                if (stream_data.chat_title) {
+                  setChatTitle(stream_data.chat_title);
+                }
               }
 
               if (
@@ -345,7 +349,7 @@ const ChatApp: React.FC = () => {
           <Typography variant="h6" fontWeight={600}>
             Recent chats
           </Typography>
-          <RecentChats loadMessages={loadMessages} />
+          <RecentChats loadMessages={loadMessages} chatTitle={chatTitle} />
         </Box>
 
         {/* <ChatHistory
