@@ -27,10 +27,10 @@ export default function RecentChats({ loadMessages, chatTitle }: Props) {
   return (
     <div className="recent-chat-wrapper w-auto py-3 overflow-y-auto">
       <ul className="space-y-2 ">
-        {chats.map((chat) => (
+        {chats.map((chat, index) => (
           <li
             onClick={() => loadMessages(chat.id)}
-            key={chat.id}
+            key={index}
             style={{ width: "100%" }}
             className="p-1 rounded hover:bg-[#8585851a] cursor-pointer"
           >
