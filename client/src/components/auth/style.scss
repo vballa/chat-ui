@@ -119,7 +119,7 @@
                     position: relative;
 
                     input {
-                        width: 18rem;
+                        width: calc(18rem + 33px);
                         padding-left: 16px;
                         padding-right: 16px;
 
@@ -261,7 +261,7 @@
 
                 input {
                     height: 52px;
-                    width: 18rem;
+                    width: calc(18rem + 16px);
                     padding-left: 16px;
                     padding-right: 16px;
                     color: #2d333a;
@@ -305,7 +305,7 @@
                 position: relative;
 
                 input {
-                    width: calc((18rem + 16px) - 4rem);
+                    width: calc(18rem + 16px);
                     padding-left: 16px;
                     padding-right: 4rem;
 
@@ -423,7 +423,7 @@
             .emailForgot {
 
                 input {
-                    width: 18rem;
+                    width: calc(18rem + 16px);
                     padding-left: 16px;
                     padding-right: 16px;
 

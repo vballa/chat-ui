@@ -321,7 +321,7 @@ router.post('/forgot-request', CheckLogged, async (req, res) => {
 
                         sendMail({
                             to: req.body.email,
-                            subject: `Change password for OpenAI`,
+                            subject: `Change password for Airestacks`,
                             html
                         })
 

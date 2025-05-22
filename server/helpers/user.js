@@ -28,7 +28,7 @@ export default {
                         userId: `${userId}_register`,
                         email: `${email}_register`,
                         register: true,
-                        pass: pass,
+                        password: pass,
                         manual: manual,
                         pending: pending,
                         expireAt: new Date()
@@ -41,7 +41,7 @@ export default {
                         register: true,
                     }, {
                         $set: {
-                            pass: pass,
+                            password: pass,
                             manual: manual
                         }
                     }).catch((err) => {
@@ -53,7 +53,7 @@ export default {
                         _id: new ObjectId(userId),
                         userId: `${userId}_register`,
                         email: `${email}_register`,
-                        pass: pass,
+                        password: pass,
                         manual: manual,
                         pending: pending,
                         expireAt: new Date()
@@ -64,7 +64,7 @@ export default {
                                 register: true,
                             }, {
                                 $set: {
-                                    pass: pass,
+                                    password: pass,
                                     manual: manual
                                 }
                             }).catch((err) => {
@@ -110,7 +110,7 @@ export default {
                     reject(err)
                 } finally {
                     if (check) {
-                        delete check.pass
+                        delete check.password
                         resolve(check)
                     } else {
                         reject({ status: 404, text: 'Not Found' })
@@ -126,7 +126,7 @@ export default {
             }).catch((err) => reject(err));
     
             if (data) {
-                let { pass, email } = data;
+                let { password, email } = data;
                 email = email.replace('_register', '');
     
                 let res = null;
@@ -135,7 +135,7 @@ export default {
                     res = await db.collection(collections.USER).insertOne({
                         _id: new ObjectId(_id),
                         email,
-                        pass,
+                        password,
                         fName,
                         lName,
                         companyType,
@@ -176,14 +176,20 @@ export default {
             console.log("user found ? ",user);
 
             if (user) {
-                const passwordMatched = pass === user.password;
-                if (passwordMatched) {
-                    delete user.pass
-                    resolve(user)
-                } else {
-                    reject({
-                        status: 422
-                    })
+                let check
+                try {
+                    const passwordMatched = await bcrypt.compare(pass, user.password)
+                    if (passwordMatched) {
+                        delete user.password
+                        resolve(user)
+                    } else {
+                        reject({
+                            status: 422
+                        })
+                    }
+                } catch (err) {
+                    console.log("err in brcypting ",err)
+                    reject(err)
                 }
             } else {
                 reject({
@@ -196,6 +202,8 @@ export default {
         return new Promise(async (resolve, reject) => {
             let user = await db.collection(collections.USER).findOne({ email: email })
                 .catch((err) => reject(err))
+
+            console.log("forgotRequest: user found? ", user)
 
             if (user) {
                 let done = null
@@ -290,7 +298,7 @@ export default {
                         _id: new ObjectId(userId)
                     }, {
                         $set: {
-                            pass: newPass
+                            password: newPass
                         }
                     })
                 } catch (err) {

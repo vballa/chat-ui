@@ -31,7 +31,7 @@ const RegisterPendings = ({ _id }) => {
       address1.trim() &&
       zipcode.trim().length === 5 &&
       state &&
-      /^\d{10}$/.test(phone)
+      /^(?:\+1\s?)?\(?([2-9][0-9]{2})\)?[-.\s]?([2-9][0-9]{2})[-.\s]?([0-9]{4})$/.test(phone)
     );
   };
 
